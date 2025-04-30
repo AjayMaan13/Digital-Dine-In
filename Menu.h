@@ -4,41 +4,40 @@
 
 #include "constants.h"
 
-namespace seneca {
+namespace seneca
+{
 
 	class Menu;
 
-	class MenuItem {
+	class MenuItem
+	{
 		friend class Menu;
-		friend size_t operator<<(std::ostream& ostr, const Menu& m);
-	private:
+		friend size_t operator<<(std::ostream &ostr, const Menu &m);
 
-		char* menuContent; 
+	private:
+		char *menuContent;
 		unsigned int menuIndentCount;
 		unsigned int menuIndentCharSize;
 		int menuObjectCount;
 
-		
 		void setSafeEmpty();
-		
 
-		MenuItem(const char* content, unsigned indentCount, unsigned indentSize, int objectCount);
-		
-		
+		MenuItem(const char *content, unsigned indentCount, unsigned indentSize, int objectCount);
+
 		~MenuItem();
 
-		MenuItem(const MenuItem& other) = delete;
-		MenuItem& operator=(const MenuItem& other) = delete;
+		MenuItem(const MenuItem &other) = delete;
+		MenuItem &operator=(const MenuItem &other) = delete;
 
 		operator bool() const;
 
-		std::ostream& display(std::ostream& ostr = std::cout) const;
+		std::ostream &display(std::ostream &ostr = std::cout) const;
 	};
 
-	class Menu {
+	class Menu
+	{
 	private:
-
-		unsigned menuIndent; 
+		unsigned menuIndent;
 
 		unsigned menuIndentSize;
 
@@ -50,28 +49,26 @@ namespace seneca {
 
 		MenuItem menuEntryPrompt;
 
-		MenuItem* menuItems[MaximumNumberOfMenuItems];
+		MenuItem *menuItems[MaximumNumberOfMenuItems];
 
 	public:
+		Menu(const char *title, const char *exitOption = "Exit", unsigned indent = 0, unsigned indentSize = 3);
 
-		Menu(const char* title, const char* exitOption = "Exit", unsigned indent = 0, unsigned indentSize = 3);
+		Menu &operator<<(const char *content);
 
+		~Menu();
 
-		Menu& operator<<(const char* content);
-		
-		~Menu();	
+		Menu(const Menu &) = delete;
 
-		Menu(const Menu&) = delete;
+		Menu &operator=(const Menu &) = delete;
 
-		Menu& operator=(const Menu&) = delete;
+		Menu(Menu &&) = delete;
 
-		Menu(Menu&&) = delete;
-
-		Menu& operator=(Menu&&) = delete;
+		Menu &operator=(Menu &&) = delete;
 
 		size_t select() const;
 
-		friend size_t operator<<(std::ostream& ostr, const Menu& m);
+		friend size_t operator<<(std::ostream &ostr, const Menu &m);
 	};
 }
 #endif // !SENECA_MENU_H

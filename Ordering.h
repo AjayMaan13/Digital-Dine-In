@@ -7,22 +7,24 @@
 #include "Billable.h"
 #include "constants.h"
 
-namespace seneca {
+namespace seneca
+{
 
-   class Ordering { 
-      Food* foods{};
-      Drink* drinks{};
-      Billable* billItems[MaximumNumberOfBillItems]{};
+   class Ordering
+   {
+      Food *foods{};
+      Drink *drinks{};
+      Billable *billItems[MaximumNumberOfBillItems]{};
       size_t foodCount{};
       size_t drinkCount{};
       size_t billItemCount{};
       size_t billNumber{1};
-      void printBillTitle(std::ostream& os) const;
-      void printTotals(std::ostream& os, double total) const;
-      size_t countRecords(const char* file) const;
+      void printBillTitle(std::ostream &os) const;
+      void printTotals(std::ostream &os, double total) const;
+      size_t countRecords(const char *file) const;
 
    public:
-      Ordering(const char* drinkFile, const char* foodFile);
+      Ordering(const char *drinkFile, const char *foodFile);
       ~Ordering();
       operator bool() const;
       size_t noOfBillItems() const;
@@ -33,7 +35,7 @@ namespace seneca {
 
       void orderFood();
       void orderDrink();
-      void printBill(std::ostream& os) const;
+      void printBill(std::ostream &os) const;
       void resetBill();
    };
 

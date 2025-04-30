@@ -2,13 +2,13 @@
 #include <fstream>
 #include <iomanip>
 
-#include "Drink.h" 
-#include "Utils.h" 
+#include "Drink.h"
+#include "Utils.h"
 
-
-using namespace std; 
-namespace seneca {
-    Drink::Drink(const char* name, double price, char size) : Billable()
+using namespace std;
+namespace seneca
+{
+    Drink::Drink(const char *name, double price, char size) : Billable()
     {
         Billable::name(name);
         Billable::price(price);
@@ -23,10 +23,10 @@ namespace seneca {
         }
     }
 
-    std::ostream& Drink::print(std::ostream& ostr) const
+    std::ostream &Drink::print(std::ostream &ostr) const
     {
-        
-        ostr << left << setw(28) << setfill('.') << (const char*)(*this);
+
+        ostr << left << setw(28) << setfill('.') << (const char *)(*this);
 
         if (m_size == 'S')
         {
@@ -48,25 +48,24 @@ namespace seneca {
         {
             ostr << ".....";
         }
-        
+
         ostr << right << setw(7) << setfill(' ') << fixed << setprecision(2) << price() << endl;
 
         return ostr;
     }
 
- 
     bool Drink::order()
     {
         int selection = -1;
         bool valid = false;
 
         cout << "         Drink Size Selection\n"
-            << "          1- Small\n"
-            << "          2- Medium\n"
-            << "          3- Larg\n"
-            << "          4- Extra Large\n"
-            << "          0- Back\n"
-            << "         > ";
+             << "          1- Small\n"
+             << "          2- Medium\n"
+             << "          3- Larg\n"
+             << "          4- Extra Large\n"
+             << "          0- Back\n"
+             << "         > ";
 
         cin >> selection;
 
@@ -102,7 +101,7 @@ namespace seneca {
         return m_size != '\0';
     }
 
-    std::ifstream& Drink::read(std::ifstream& file)
+    std::ifstream &Drink::read(std::ifstream &file)
     {
         char name[26];
         double price;
@@ -115,13 +114,15 @@ namespace seneca {
         file >> price;
         file.ignore(1000, '\n');
 
-        if (file) {
+        if (file)
+        {
             Billable::name(name);
             Billable::price(price);
             m_size = '\0';
         }
-        
-        else {
+
+        else
+        {
             Billable::name(baseName.c_str());
             Billable::price(basePrice);
             m_size = baseSize;

@@ -10,10 +10,12 @@
 using namespace std;
 using namespace seneca;
 
-int main() {
+int main()
+{
     Ordering ord("drinks.csv", "foods.csv");
 
-    if (!ord) {
+    if (!ord)
+    {
         cout << "Error loading menu data files!" << endl;
         return 1;
     }
@@ -21,7 +23,8 @@ int main() {
     bool done = false;
     int selection;
 
-    while (!done) { 
+    while (!done)
+    {
         cout << "Seneca Restaurant " << endl;
         cout << " 1- Order" << endl;
         cout << " 2- Print Bill" << endl;
@@ -30,10 +33,14 @@ int main() {
         cout << " 5- List Drinks" << endl;
         cout << " 0- End Program" << endl;
         cout << "> ";
-        cin >> selection;switch (selection) {
-        case 1: {
+        cin >> selection;
+        switch (selection)
+        {
+        case 1:
+        {
             bool backToMain = false;
-            while (!backToMain) {
+            while (!backToMain)
+            {
                 cout << "   Order Menu" << endl;
                 cout << "    1- Food" << endl;
                 cout << "    2- Drink" << endl;
@@ -43,7 +50,8 @@ int main() {
                 cin.clear();
                 cin >> orderOption;
 
-                switch (orderOption) {
+                switch (orderOption)
+                {
                 case 1:
                     cin.clear();
                     ord.orderFood();
@@ -62,7 +70,7 @@ int main() {
             break;
         }
         case 2:
-            ord.printBill(cout); 
+            ord.printBill(cout);
             break;
         case 3:
             ord.resetBill();
@@ -74,18 +82,22 @@ int main() {
             ord.listDrinks();
             break;
         case 0:
-        // case 0 to exit
-            if (ord.hasUnsavedBill()) {
+            // case 0 to exit
+            if (ord.hasUnsavedBill())
+            {
                 cout << "You have bills that are not saved, are you sure you want to exit?" << endl;
                 cout << " 1- Yes" << endl;
                 cout << " 0- No" << endl;
                 cout << "> ";
                 int confirm;
                 cin >> confirm;
-                if (confirm == 1) {
+                if (confirm == 1)
+                {
                     done = true;
                 }
-            } else {
+            }
+            else
+            {
                 done = true;
             }
             break;

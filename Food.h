@@ -2,27 +2,30 @@
 #define SENECA_FOOD_H
 
 #include "Billable.h"
-namespace seneca { 
-    class Food : public Billable {
+namespace seneca
+{
+    class Food : public Billable
+    {
     private:
-        bool m_ordered; 
-        bool m_child; 
-        char* m_customize; 
+        bool m_ordered;
+        bool m_child;
+        char *m_customize;
+
     public:
         Food();
 
-        ~Food();  
-        Food(const Food& food);
-        Food& operator=(const Food& food);
-        
-        std::ostream& print(std::ostream& ostr = std::cout) const override;
-        
+        ~Food();
+        Food(const Food &food);
+        Food &operator=(const Food &food);
+
+        std::ostream &print(std::ostream &ostr = std::cout) const override;
+
         bool order() override;
         bool ordered() const override;
-        std::ifstream& read(std::ifstream& file) override;
-        double price() const override;      
+        std::ifstream &read(std::ifstream &file) override;
+        double price() const override;
     };
 
 }
-#endif 
+#endif
 // !SENECA_FOOD_H

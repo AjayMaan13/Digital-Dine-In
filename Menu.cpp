@@ -3,13 +3,14 @@
 #include <cstring>
 #include <cctype>
 
-#include "Menu.h" 
-#include  "Utils.h" 
+#include "Menu.h"
+#include "Utils.h"
 #include "constants.h"
 
 using namespace std;
 
-namespace seneca {
+namespace seneca
+{
 
 	void MenuItem::setSafeEmpty()
 	{
@@ -19,7 +20,7 @@ namespace seneca {
 		menuObjectCount = -1;
 	}
 
-	MenuItem::MenuItem(const char* content, unsigned indentCount, unsigned indentSize, int objectCount)
+	MenuItem::MenuItem(const char *content, unsigned indentCount, unsigned indentSize, int objectCount)
 	{
 		if (content == nullptr || *content == '\0' ||
 			indentCount > 4 || indentSize > 4 ||
@@ -29,7 +30,7 @@ namespace seneca {
 		}
 		else
 		{
-			const char* ptr = content;
+			const char *ptr = content;
 			while (*ptr != '\0' && isspace(*ptr))
 			{
 				++ptr;
@@ -59,9 +60,10 @@ namespace seneca {
 		return menuContent != nullptr;
 	}
 
-	std::ostream& MenuItem::display(std::ostream& ostr) const
+	std::ostream &MenuItem::display(std::ostream &ostr) const
 	{
-		if (!*this) {
+		if (!*this)
+		{
 			return ostr;
 		}
 
@@ -69,26 +71,27 @@ namespace seneca {
 		{
 			ostr << ' ';
 		}
-		
+
 		if (menuObjectCount >= 0)
 		{
-			if (menuObjectCount < 10) ostr << ' ';
+			if (menuObjectCount < 10)
+				ostr << ' ';
 			ostr << menuObjectCount << "- ";
 		}
 
-		const char* ptr = menuContent;
-		while (std::isspace(*ptr)) ++ptr;
+		const char *ptr = menuContent;
+		while (std::isspace(*ptr))
+			++ptr;
 		ostr << ptr;
 
 		return ostr;
 	}
 
-	Menu::Menu(const char* title, const char* exitOption, unsigned indent, unsigned indentSize) :
-		menuIndent(indent), menuIndentSize(indentSize),
-		menuItemCount(0), 
-		menuTitle(title, indent, indentSize, -1),
-		menuExitOption(exitOption, indent, indentSize, 0),
-		menuEntryPrompt("> ", indent, indentSize, -1)
+	Menu::Menu(const char *title, const char *exitOption, unsigned indent, unsigned indentSize) : menuIndent(indent), menuIndentSize(indentSize),
+																								  menuItemCount(0),
+																								  menuTitle(title, indent, indentSize, -1),
+																								  menuExitOption(exitOption, indent, indentSize, 0),
+																								  menuEntryPrompt("> ", indent, indentSize, -1)
 	{
 		for (unsigned i = 0; i < MaximumNumberOfMenuItems; i++)
 		{
@@ -96,7 +99,7 @@ namespace seneca {
 		}
 	}
 
-	Menu& Menu::operator<<(const char* content)
+	Menu &Menu::operator<<(const char *content)
 	{
 		if (menuItemCount < MaximumNumberOfMenuItems)
 		{
@@ -106,7 +109,6 @@ namespace seneca {
 
 		return *this;
 	}
-
 
 	Menu::~Menu()
 	{
@@ -119,7 +121,7 @@ namespace seneca {
 
 	size_t Menu::select() const
 	{
-		
+
 		if (menuTitle)
 		{
 			menuTitle.display(cout);
@@ -135,19 +137,16 @@ namespace seneca {
 			}
 		}
 
-
 		menuExitOption.display(cout);
 		cout << endl;
 
 		menuEntryPrompt.display(std::cout);
 
-		
 		int selection = ut.getInt(0, menuItemCount);
 		return selection;
 	}
 
-
-	size_t operator<<(std::ostream& ostr, const Menu& m)
+	size_t operator<<(std::ostream &ostr, const Menu &m)
 	{
 
 		if (&ostr == &cout)
@@ -161,7 +160,6 @@ namespace seneca {
 				m.menuTitle.display(ostr);
 				ostr << endl;
 			}
-
 
 			for (unsigned i = 0; i < m.menuItemCount; i++)
 			{
