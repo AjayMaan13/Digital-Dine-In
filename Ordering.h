@@ -1,48 +1,40 @@
 #ifndef SENECA_ORDERING_H
 #define SENECA_ORDERING_H
 
-// inported libraries and .h files
 #include <iostream>
 #include "Food.h"
 #include "Drink.h"
 #include "Billable.h"
 #include "constants.h"
 
-namespace seneca { // seneca
+namespace seneca {
 
-   class Ordering { // Ordering class here
-      Food* foods{}; // foods
-      Drink* drinks{}; // drinks
-      Billable* billItems[MaximumNumberOfBillItems]{}; // billItems here
-      size_t foodCount{}; // food count
-      size_t drinkCount{}; // drink
+   class Ordering { 
+      Food* foods{};
+      Drink* drinks{};
+      Billable* billItems[MaximumNumberOfBillItems]{};
+      size_t foodCount{};
+      size_t drinkCount{};
       size_t billItemCount{};
       size_t billNumber{1};
-      // Private member functions here
       void printBillTitle(std::ostream& os) const;
       void printTotals(std::ostream& os, double total) const;
       size_t countRecords(const char* file) const;
 
    public:
-   // public func
-      Ordering(const char* drinkFile, const char* foodFile); // construcotr here
-      ~Ordering();// destructor
-      // boolean operator overload here _>
-      operator bool() const;// book
-      size_t noOfBillItems() const; // Returns number of bill items
-      bool hasUnsavedBill() const; // shcekc if there is any unsaved bill
+      Ordering(const char* drinkFile, const char* foodFile);
+      ~Ordering();
+      operator bool() const;
+      size_t noOfBillItems() const;
+      bool hasUnsavedBill() const;
 
-      // List all food items and Drink items
-      void listFoods() const; // food
-      void listDrinks() const; // drink
+      void listFoods() const;
+      void listDrinks() const;
 
-
-      // Order foods and drinks
-      void orderFood(); // food
-      void orderDrink(); // drink
-      void printBill(std::ostream& os) const; // os stream print bill func
-      void resetBill(); // reset bill is done here
-      // all functions are done for
+      void orderFood();
+      void orderDrink();
+      void printBill(std::ostream& os) const;
+      void resetBill();
    };
 
 }
