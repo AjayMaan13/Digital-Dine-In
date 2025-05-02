@@ -40,5 +40,4 @@ namespace seneca
    };
 
 }
-
 #endif // !SENECA_ORDERING_H
